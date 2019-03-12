@@ -10,17 +10,23 @@ z0  z1  ... zn
 import math
 
 def make_bezier(x0,y0,x1,y1,x2,y2,x3,y3):
-    pass
+    bezier=[[-1,3,-2,1],[3,-6,3,0],[-3,3,0,0],[1,0,0,0]]
+    curve_x=[[x0,x1,x2,x3]]
+    curve_y=[[y0,y1,y2,y3]]
+    matrix_mult(bezier,curve_x)
+    matrix_mult(bezier,curve_y)
+    #shoulr return coefficients
+    return [curve_x,curve_y] 
 #make coefficient matrix
 def make_hermite(x0,y0,x1,y1,rx0,ry0,rx1,ry1):
     #make the x coeff first
-    curve_X=[[x0,x1,rx0,rx1]]
-    curve_Y=[[y0,y1,ry0,ry1]]
+    curve_x=[[x0,x1,rx0,rx1]]
+    curve_y=[[y0,y1,ry0,ry1]]
     hermite_inverse=[[2,-3,0,1],[-2,3,0,0],[1,-2,1,0],[1,-1,0,0]]
-    matrix_mult(hermite_inverse,curve_X)
-    matrix_mult(hermite_inverse,curve_Y)
+    matrix_mult(hermite_inverse,curve_x)
+    matrix_mult(hermite_inverse,curve_y)
     #shoulr return coefficients
-    return curve_X,curve_Y
+    return [curve_x,curve_y] #returns list of coefficients
 
 def generate_curve_coefs( p0, p1, p2, p3, t ):
     pass
@@ -77,7 +83,7 @@ def print_matrix( matrix ):
         for c in range( len(matrix) ):
             s+= str(matrix[c][r]) + ' '
         s+= '\n'
-    print s
+    print (s)
     
 #turn the paramter matrix into an identity matrix
 #you may assume matrix is square

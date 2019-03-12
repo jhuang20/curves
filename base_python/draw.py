@@ -4,22 +4,71 @@ from math import *
 
 def add_circle( points, cx, cy, cz, r, step ):
     t=0
+    prev_point=[]
     while t<1.01:
         x=cx+r*math.cos(2*math.pi*t)
         y=cy+r*math.sin(2*math.pi*t)
+        try:
+            add_edge(points,x,y,0,prev_point[0][0],prev_point[0][1],prev_point[0][2])
+        except:
+            pass
+            add_point(points, x, y, 0)
         add_point(points,x,y)
+        prev_point=[[x,y,0,1]]
         t+=step
 
 def add_curve( points, x0, y0, x1, y1, x2, y2, x3, y3, step, curve_type ):
+    t=0
+    prev_point=[]
     if curve_type=='hermite':
-        make_hermite(x0,y0,x1,y1,x2,y2,x3,y3)
+        p=make_hermite(x0,y0,x1,y1,x2,y2,x3,y3)
+        CURVE_X=p[0]
+        a=CURVE_X[0][0]
+        b=CURVE_X[0][1]
+        c=CURVE_X[0][2]
+        d=CURVE_X[0][3]
+        CURVE_Y=p[1]
+        a1=CURVE_Y[0][0]
+        b1=CURVE_Y[0][1]
+        c1=CURVE_Y[0][2]
+        d1=CURVE_Y[0][3]
+        while t<1.01:
+            x=a*t**3+b*t**2+c*t**1+d
+            y=a1*t**3+b1*t**2+c1*t**1+d1
+            z=0
+            try:
+                add_edge(points,x,y,z,prev_point[0][0],prev_point[0][1],prev_point[0][2])
+            except:
+                pass
+                add_point(points, x, y, z)
+            prev_point=[[x,y,z,1]]
+            t+=step
     else:
-        pass
-
+        p=make_bezier(x0,y0,x1,y1,x2,y2,x3,y3)
+        CURVE_X=p[0]
+        a=CURVE_X[0][0]
+        b=CURVE_X[0][1]
+        c=CURVE_X[0][2]
+        d=CURVE_X[0][3]
+        CURVE_Y=p[1]
+        a1=CURVE_Y[0][0]
+        b1=CURVE_Y[0][1]
+        c1=CURVE_Y[0][2]
+        d1=CURVE_Y[0][3]
+        while t<1.01:
+            x=a*t**3+b*t**2+c*t**1+d
+            y=a1*t**3+b1*t**2+c1*t**1+d1
+            z=0
+            try:
+                add_edge(points,x,y,z,prev_point[0][0],prev_point[0][1],prev_point[0][2])
+            except:
+                pass
+                add_point(points, x, y, z)
+            t+=step
 
 def draw_lines( matrix, screen, color ):
     if len(matrix) < 2:
-        print 'Need at least 2 points to draw'
+        print ('Need at least 2 points to draw')
         return
 
     point = 0
