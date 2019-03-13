@@ -41,6 +41,7 @@ def add_curve( points, x0, y0, x1, y1, x2, y2, x3, y3, step, curve_type ):
             except:
                 pass
                 add_point(points, x, y, z)
+            add_point(points,x,y)
             prev_point=[[x,y,z,1]]
             t+=step
     else:
@@ -64,6 +65,8 @@ def add_curve( points, x0, y0, x1, y1, x2, y2, x3, y3, step, curve_type ):
             except:
                 pass
                 add_point(points, x, y, z)
+            add_point(points,x,y)
+            prev_point=[[x,y,z,1]]
             t+=step
 
 def draw_lines( matrix, screen, color ):

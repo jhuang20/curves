@@ -10,7 +10,7 @@ z0  z1  ... zn
 import math
 
 def make_bezier(x0,y0,x1,y1,x2,y2,x3,y3):
-    bezier=[[-1,3,-2,1],[3,-6,3,0],[-3,3,0,0],[1,0,0,0]]
+    bezier=[[-1,3,-3,1],[3,-6,3,0],[-3,3,0,0],[1,0,0,0]]
     curve_x=[[x0,x1,x2,x3]]
     curve_y=[[y0,y1,y2,y3]]
     matrix_mult(bezier,curve_x)
